@@ -20,7 +20,7 @@ app.listen(port, () => {
 });
 
 
-const statusMessages = ["Playing ************* "];
+const statusMessages = ["ᗪ𝔼ᗩ𝕋ᕼᗰᗩᑕᕼ𝕀ᑎ𝔼 𝕋𝔼ᗩᗰ [Bot]"];
 
 
 let currentIndex = 0;
