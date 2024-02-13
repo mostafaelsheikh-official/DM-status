@@ -1,5 +1,5 @@
 {
-  "name": "👑 BOT GHOST STATUS REMOVER RTX \n",
+  "name": "👑 BOT GHOST STATUS REMOVER DSH \n",
   "version": "Latest Version : ",
   "description": "There will be more updates For this BOT",
   "main": "index.js",
@@ -208,14 +208,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RTX-GAMINGG/Music-BOT.git"
+    "url": "git+https://github.com/"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RTX-GAMINGG/Music-BOT/issues"
+    "url": "https://github.com/"
   },
-  "homepage": "https://github.com/RTX-GAMINGG/Music-BOT#readme",
+  "homepage": "https://github.com/",
   "devDependencies": {
     "node": "^20.5.0"
   }
