@@ -1,73 +1,81 @@
-const { Client, GatewayIntentBits, ActivityType, TextChannel } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType, TextChannel, MessageActionRow, MessageButton } = require('discord.js');
 require('dotenv').config();
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const client = new Client({
-  intents: Object.keys(GatewayIntentBits).map((a) => {
-    return GatewayIntentBits[a];
-  }),
+    intents: Object.keys(GatewayIntentBits).map((a) => {
+        return GatewayIntentBits[a];
+    }),
 });
 const app = express();
 const port = 3000;
 app.get('/', (req, res) => {
-  const imagePath = path.join(__dirname, 'index.html');
-  res.sendFile(imagePath);
+    const imagePath = path.join(__dirname, 'index.html');
+    res.sendFile(imagePath);
 });
 app.listen(port, () => {
-  console.log(`🔗 Listening to DSH: http://localhost:${port}`);
-  console.log(`🔗 Replit URL: https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`);
+    console.log(`🔗 Listening to DSH: http://localhost:${port}`);
+    console.log(`🔗 Replit URL: https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`);
 });
 
 
-const statusMessages = ["ᗪ𝔼ᗩ𝕋ᕼᗰᗩᑕᕼ𝕀ᑎ𝔼 𝕋𝔼ᗩᗰ [Bot]"];
+const statusMessages = ["Playing ************* "];
 
 
 let currentIndex = 0;
 const channelId = '';
 
 async function login() {
-  try {
-    await client.login(process.env.TOKEN);
-    console.log(`\x1b[36m%s\x1b[0m`, `|    🐇 Logged in as ${client.user.tag}`);
-  } catch (error) {
-    console.error('Failed to log in:', error);
-    process.exit(1);
-  }
+    try {
+        await client.login(process.env.TOKEN);
+        console.log(`\x1b[36m%s\x1b[0m`, `|    🐇 Logged in as ${client.user.tag}`);
+    } catch (error) {
+        console.error('Failed to log in:', error);
+        process.exit(1);
+    }
 }
 
 
 function updateStatusAndSendMessages() {
-  const currentStatus = statusMessages[currentIndex];
-  const nextStatus = statusMessages[(currentIndex + 1) % statusMessages.length];
+    const currentStatus = statusMessages[currentIndex];
+    const nextStatus = statusMessages[(currentIndex + 1) % statusMessages.length];
 
-  client.user.setPresence({
-    activities: [{ name: currentStatus, type: ActivityType.Custom}],
-    status: 'dnd',
-  });
+    client.user.setPresence({
+        activities: [{ name: currentStatus, type: ActivityType.Custom }],
+        status: 'dnd',
+    });
 
-  
-  const textChannel = client.channels.cache.get(channelId);
 
-  if (textChannel instanceof TextChannel) {
-   
-    textChannel.send(`Bot status is: ${currentStatus}`);
-  } else {
+    const textChannel = client.channels.cache.get(channelId);
 
-  }
+    if (textChannel instanceof TextChannel) {
+        textChannel.send(`Bot status is: ${currentStatus}`, {
+            components: [
+                new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setURL('https://www.example.com')
+                            .setLabel('Click Me!')
+                            .setStyle('LINK')
+                    )
+            ]
+        });
+    } else {
+        console.error('Channel is not a TextChannel');
+    }
 
-  currentIndex = (currentIndex + 1) % statusMessages.length;
+    currentIndex = (currentIndex + 1) % statusMessages.length;
 }
 
 client.once('ready', () => {
-  console.log(`\x1b[36m%s\x1b[0m`, `|    ✅ Bot is ready as ${client.user.tag}`);
-  console.log(`\x1b[36m%s\x1b[0m`, `|    😏 BOT By MostafaElsheikh`);
-  updateStatusAndSendMessages();
-
-  setInterval(() => {
+    console.log(`\x1b[36m%s\x1b[0m`, `|    ✅ Bot is ready as ${client.user.tag}`);
+    console.log(`\x1b[36m%s\x1b[0m`, `|    😏 BOT By MostafaElsheikh`);
     updateStatusAndSendMessages();
-  }, 5000);
+
+    setInterval(() => {
+        updateStatusAndSendMessages();
+    }, 5000);
 });
 
 login();
-
