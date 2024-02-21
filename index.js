@@ -20,7 +20,7 @@ app.listen(port, () => {
 });
 
 
-const statusMessages = ["Playing ************* "];
+const statusMessages = ["12345"];
 
 
 let currentIndex = 0;
@@ -54,7 +54,7 @@ if (textChannel instanceof TextChannel) {
         components: [],
         embeds: [
             {
-                title: 'Check out the stream:',
+                title: 'Stream',
                 description: `🔴 [Click here to watch](https://www.example.com)`,
                 color: 0xff0000 // You can set a custom color for the embed
             }
