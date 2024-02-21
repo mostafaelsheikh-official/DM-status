@@ -49,21 +49,20 @@ function updateStatusAndSendMessages() {
 
     const textChannel = client.channels.cache.get(channelId);
 
-    if (textChannel instanceof TextChannel) {
-        textChannel.send(`Bot status is: ${currentStatus}`, {
-            components: [
-                new MessageActionRow()
-                    .addComponents(
-                        new MessageButton()
-                            .setURL('https://www.example.com')
-                            .setLabel('Click Me!')
-                            .setStyle('LINK')
-                    )
-            ]
-        });
-    } else {
-        console.error('Channel is not a TextChannel');
-    }
+if (textChannel instanceof TextChannel) {
+    textChannel.send(`Bot status is: ${currentStatus}`, {
+        components: [],
+        embeds: [
+            {
+                title: 'Check out the stream:',
+                description: `🔴 [Click here to watch](https://www.example.com)`,
+                color: 0xff0000 // You can set a custom color for the embed
+            }
+        ]
+    });
+} else {
+    console.error('Channel is not a TextChannel');
+}
 
     currentIndex = (currentIndex + 1) % statusMessages.length;
 }
